@@ -1,13 +1,13 @@
-use petgraph::grapj::DiGraph;
+use petgraph::graph::DiGraph;
 use petgraph::visit::Bfs;
 use petgraph::Direction;
-use std::collection::HashMap;
-use std::file::File;
+use std::collections::HashMap;
+use std::fs::File;
 use std::io::{Write, BufWriter};
 
 pub fn degree_analysis(graph: &DiGraph<u32, ()>) -> (f64, f64) {
-    let mut in_degrees: vec![];
-    let mut out_degrees: vec![];
+    let mut in_degrees = vec![];
+    let mut out_degrees = vec![];
 
     for node in graph.node_indices() {
         in_degrees.push(graph.neighbors_directed(node, Direction::Incoming).count());
@@ -20,3 +20,6 @@ pub fn degree_analysis(graph: &DiGraph<u32, ()>) -> (f64, f64) {
     (avg_indegree, avg_out_degree)
 }
 
+fn average(){
+    
+}
