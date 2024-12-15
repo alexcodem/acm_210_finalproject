@@ -53,7 +53,7 @@ pub fn display_shortest_paths(graph: &DiGraph<u32, ()>, start: u32, max_display:
     let shortest_paths = compute_shortest_paths_bfs(graph, start);
 
     //Display a sample of the results
-    println!("{:<10) | {:<10}", "Node", "Cost");
+    println!("{:<10}) | {:<10}", "Node", "Cost");
     println!("---------------------");
     for (node, cost) in shortest_paths.iter().take(max_display) {
         println!("{:<10} | {:<10}", node, cost);
@@ -70,4 +70,28 @@ pub fn display_shortest_paths(graph: &DiGraph<u32, ()>, start: u32, max_display:
 
     println!("Full shortest paths written to {}", output_file);
     Ok(())
+}
+
+//Computers clustering coefficients for a node
+pub fn clustering_coefficient(graph: &DiGraph<u32, ()>, node: u32) -> f64 {
+    let node_index = graph.node_indices().find(|&i| graph[i] == node).expect("Node not found in Graph!");
+
+    let neighbors: Vec<_> = graph.neighbors_undirected(node_index).collect();
+    let neighbor_count = neighbors.len();
+
+    if neighbor_count < 2 {
+        return 0.0;
+    }
+
+    let mut connected_neighbors = 0;
+    for i in 0..neighbor_count {
+        for j in (i+1)..neighbor_count {
+            if graph.find_edge_undirected(neighbors[i], neighbors[j]).is_some() {
+                connected_neighbors += 1;
+            }
+        }
+    }
+
+    let total_possible_connections = neighbors_count * (neighbor_count - 1) / 2;
+    connected as f64 / total_possible_connections as f64
 }
