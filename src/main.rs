@@ -1,6 +1,8 @@
 mod graph_loader;
+mod graph_analysis;
 
 use graph_loader::load_graph;
+use graph_analysis::degree_analysis;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {let file_path = "amazon0302.txt";
     
