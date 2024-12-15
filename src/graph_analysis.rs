@@ -47,3 +47,27 @@ pub fn compute_shortest_paths_bfs(graph: &DiGraph<u32, ()>, start: u32) -> HashM
     }
     distances
 }
+
+//Displays shortest paths in our main and writes the entirety to a file
+pub fn display_shortest_paths(graph: &DiGraph<u32, ()>, start: u32, max_display: usize, output_file: &str) -> Result<(), std::io::Error> {
+    let shortest_paths = compute_shortest_paths_bfs(graph, start);
+
+    //Display a sample of the results
+    println!("{:<10) | {:<10}", "Node", "Cost");
+    println!("---------------------");
+    for (node, cost) in shortest_paths.iter().take(max_display) {
+        println!("{:<10} | {:<10}", node, cost);
+    }
+
+    //Write full results to a file
+    let file = File::create(output_file)?;
+    let mut writer = BufWriter::new(file);
+
+    writeln!(writer, "Node,Cost")?;
+    for (node, cost) in shortest_paths {
+        writeln!(writer, "{},{}", node, cost)?;
+    }
+
+    println!("Full shortest paths written to {}", output_file);
+    Ok(())
+}
