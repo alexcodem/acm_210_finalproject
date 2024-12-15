@@ -17,7 +17,7 @@ pub fn degree_analysis(graph: &DiGraph<u32, ()>) -> (f64, f64) {
     let avg_in_degree = average(&in_degrees);
     let avg_out_degree = average(&out_degrees);
 
-    (avg_indegree, avg_out_degree)
+    (avg_in_degree, avg_out_degree)
 }
 
 fn average(degrees: &[usize]) -> f64 {
