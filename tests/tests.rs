@@ -26,6 +26,8 @@ fn test_load_graph_empty_file() {
     let graph = result.unwrap();
     assert_eq!(graph.node_count(), 0, "Expctected 0 nodes for an empty dataset!");
     assert_eq!(graph.edge_count(), 0, "Expctected 0 edges for an empty dataset!");
+
+    std::fs::remove_file(file_path).expect("Failed to clean up test dataset");
 }
 
 #[test]
