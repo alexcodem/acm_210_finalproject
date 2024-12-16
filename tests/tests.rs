@@ -86,12 +86,50 @@ fn test_degree_analysis_small_graph() {
 #[test]
 fn test_graph_analysis_degrees() {
     let mut graph = DiGraph::<u32, ()>::new();
-    let mut a = graph.add_node(1);
-    let mut b = graph.add_node(2);
-    let mut c = graph.add_node(2);
+    let a = graph.add_node(1);
+    let b = graph.add_node(2);
+    let c = graph.add_node(2);
 
     let (avg_in_degree, avg_out_degree) = degree_analysis(&graph);
 
     assert_eq!(avg_in_degree, 1.0, "Expected average in-degree to be 1.0");
     assert_eq!(avg_out_degree, 1.0, "Expected average out-degree to be 1.0");
+}
+
+#[test]
+fn test_clustering_coefficient_no_neighbors() {
+    let mut graph = DiGraph::<u32, ()>::new();
+    let node = graph.add_node(1);
+
+    let coeff = clustering_coefficient(&graph, graph[node]);
+    assert_eq!(coeff, 0.0, "Clustering coefficient with no neighbors should be 0.0");
+}
+
+#[test]
+fn test_clustering_coefficient_complete_neighbors() {
+    let mut graph = DiGraph::<u32, ()>::new();
+    let a = graph.add_node(1);
+    let b = graph.add_node(2);
+    let c = graph.add_node(3);
+
+    graph.add_edge(a, c, ());
+    graph.add_edge(b, c, ());
+    graph.add_edge(c, a, ());
+
+    let coeff = clustering_coefficient(&graph, graph[a]);
+    assert_eq!(coeff, 1.0, "Clustering coefficient for fully connected neigbors should be 1.0");
+}
+
+#[test]
+fn test_clustering_coefficient_partial_neighbors() {
+    let mut graph = DiGraph::<u32, ()>::new();
+    let a = graph.add_node(1);
+    let b = graph.add_node(2);
+    let c = graph.add_node(3);
+
+    graph.add_edge(a, b, ());
+    graph.add_edge(a, c, ());
+
+    let coeff = clustering_coefficient(&graph, graph[a]);
+    assert_eq!(coeff, 0.0, "Clustering coefficient for partially connected neighbors should be 0.0");
 }
