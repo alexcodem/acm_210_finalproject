@@ -90,6 +90,10 @@ fn test_graph_analysis_degrees() {
     let b = graph.add_node(2);
     let c = graph.add_node(2);
 
+    graph.add_egde(a, b, ());
+    graph.add_egde(b, c, ());
+    graph.add_egde(c, a, ());
+    
     let (avg_in_degree, avg_out_degree) = degree_analysis(&graph);
 
     assert_eq!(avg_in_degree, 1.0, "Expected average in-degree to be 1.0");
