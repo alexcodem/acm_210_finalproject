@@ -3,5 +3,22 @@ name = "acm_210_finalproject"
 version = "0.1.0"
 edition = "2021"
 
+# Metadata
+authors = ["Alex Mannion <alexcm@bu.edu"]
+description = "Analysis of Amazon co-purcharsing using DiGraph"
+license = "Stanford"
+repository = ""
+
 [dependencies]
+# Graph analysis library
 petgraph = "0.6"
+
+#For handling CSVs and potential dataset parsing
+csv = "1.1"
+
+# For testing
+anyhow = "1.0"
+
+[dev-dependencies]
+# Testing framework
+assert_approx_eq = "1.1.0"
