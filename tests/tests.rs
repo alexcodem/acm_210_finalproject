@@ -90,9 +90,9 @@ fn test_graph_analysis_degrees() {
     let b = graph.add_node(2);
     let c = graph.add_node(2);
 
-    graph.add_egde(a, b, ());
-    graph.add_egde(b, c, ());
-    graph.add_egde(c, a, ());
+    graph.add_edge(a, b, ());
+    graph.add_edge(b, c, ());
+    graph.add_edge(c, a, ());
     
     let (avg_in_degree, avg_out_degree) = degree_analysis(&graph);
 
