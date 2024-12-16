@@ -28,6 +28,7 @@ fn test_load_graph_empty_file() {
     assert_eq!(graph.edge_count(), 0, "Expctected 0 edges for an empty dataset!");
 }
 
+#[test]
 fn test_load_graph_malformed_file() {
     let malformed_data = "0\t1\ninvalid_line\n2\t3";
     let file_path = "malformed_dataset.txt";
@@ -80,4 +81,16 @@ fn test_degree_analysis_small_graph() {
     
     assert_eq!(in_degrees, vec![1, 1, 1], "Each node should have in-degree 1");
     assert_eq!(out_degrees, vec![1, 1, 1], "Each node should have out-degree 1");
+}
+
+#[test]
+fn test_graph_analysis_degrees() {
+    let mut graph = graph.add_node(1);
+    let mut graph = graph.add_node(2);
+    let mut graph = graph.add_node(2);
+
+    let (avg_in_degree, avg_out_degree) = degree_analysis(&graph);
+
+    assert_eq!(avg_in_degree, 1.0, "Expected average in-degree to be 1.0");
+    assert_eq!(avg_out_degree, 1.0, "Expected average out-degree to be 1.0");
 }
