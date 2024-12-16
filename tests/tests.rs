@@ -116,7 +116,7 @@ fn test_clustering_coefficient_complete_neighbors() {
     let b = graph.add_node(2);
     let c = graph.add_node(3);
 
-    graph.add_edge(a, c, ());
+    graph.add_edge(a, b, ());
     graph.add_edge(b, c, ());
     graph.add_edge(c, a, ());
 
