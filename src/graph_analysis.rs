@@ -53,7 +53,7 @@ pub fn display_shortest_paths(graph: &DiGraph<u32, ()>, start: u32, max_display:
     let shortest_paths = compute_shortest_paths_bfs(graph, start);
 
     //Display a sample of the results
-    println!("{:<10}) | {:<10}", "Node", "Cost");
+    println!("{:<10} | {:<10}", "Node", "Cost");
     println!("---------------------");
     for (node, cost) in shortest_paths.iter().take(max_display) {
         println!("{:<10} | {:<10}", node, cost);
@@ -97,10 +97,10 @@ pub fn clustering_coefficient(graph: &DiGraph<u32, ()>, node: u32) -> f64 {
 }
 
 //Computes clustering coefficients for all nodes and writes a summary, also the entirety of results to a file.
-pub fn clustering_coefficient(graph :&DiGrpah<u32, ()>, output_file: &str) -> Result<(), std::io::Error> {
+pub fn clustering_coefficient_summary(graph :&DiGraph<u32, ()>, output_file: &str) -> Result<(), std::io::Error> {
     let mut coefficients = vec![];
 
-    for node in graph.node_indicies() {
+    for node in graph.node_indices() {
         let coeff = clustering_coefficient(graph, graph[node]);
         coefficients.push(coeff);
     }
@@ -110,8 +110,8 @@ pub fn clustering_coefficient(graph :&DiGrpah<u32, ()>, output_file: &str) -> Re
     let max_coeff = coefficients.iter().cloned().fold(0.0 / 0.0, f64::max);
 
     println!("Clustering Coefficients Summary:");
-    println!("Average Coefficient: {:.4", avg_coeff);
-    println!("Maximum Coefficient: {;.4", max_coeff);
+    println!("Average Coefficient: {:.4}", avg_coeff);
+    println!("Maximum Coefficient: {:.4}", max_coeff);
 
     //Write full results to a file
     let file = File::create(output_file)?;
