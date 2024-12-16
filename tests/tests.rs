@@ -86,9 +86,9 @@ fn test_degree_analysis_small_graph() {
 #[test]
 fn test_graph_analysis_degrees() {
     let mut graph = DiGraph::<u32, ()>::new();
-    let mut graph = graph.add_node(1);
-    let mut graph = graph.add_node(2);
-    let mut graph = graph.add_node(2);
+    let mut a = graph.add_node(1);
+    let mut b = graph.add_node(2);
+    let mut c = graph.add_node(2);
 
     let (avg_in_degree, avg_out_degree) = degree_analysis(&graph);
 
