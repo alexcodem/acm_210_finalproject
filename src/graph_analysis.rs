@@ -95,3 +95,33 @@ pub fn clustering_coefficient(graph: &DiGraph<u32, ()>, node: u32) -> f64 {
     let total_possible_connections = neighbor_count * (neighbor_count - 1) / 2;
     connected_neighbors as f64 / total_possible_connections as f64
 }
+
+//Computes clustering coefficients for all nodes and writes a summary, also the entirety of results to a file.
+pub fn clustering_coefficient(graph :&DiGrpah<u32, ()>, output_file: &str) -> Result<(), std::io::Error> {
+    let mut coefficients = vec![];
+
+    for node in graph.node_indicies() {
+        let coeff = clustering_coefficient(graph, graph[node]);
+        coefficients.push(coeff);
+    }
+
+    //Computes statisitics
+    let avg_coeff = coefficients.iter().sum::<f64>() / coefficients.len() as f64;
+    let max_coeff = coefficients.iter().cloned().fold(0.0 / 0.0, f64::max);
+
+    println!("Clustering Coefficients Summary:");
+    println!("Average Coefficient: {:.4", avg_coeff);
+    println!("Maximum Coefficient: {;.4", max_coeff);
+
+    //Write full results to a file
+    let file = File::create(output_file)?;
+    let mut writer = BufWriter::new(file);
+
+    writeln!(writer, "Node,ClusteringCoefficient")?;
+    for (node_index, coeff) in graph.node_indices().zip(coefficients.iter()) {
+        writeln!(writer, "{} {}", graph[node_index], coeff)?;
+    }
+
+    println!("Full Clustering Coefficients written to {}", output_file);
+    Ok(())
+}
