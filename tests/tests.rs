@@ -1,6 +1,6 @@
 use acm_210_finalproject::graph_loader::{load_graph, MyError};
 use acm_210_finalproject::graph_analysis::degree_analysis;
-use acm_210_finalproject::graph_anlaysis::clustering_coefficient;
+use acm_210_finalproject::graph_analysis::clustering_coefficient;
 use petgraph::graph::DiGraph;
 
 #[test]
@@ -10,8 +10,8 @@ fn test_load_valid_graph() {
     std::fs::write(file_path, dataset).expect("Failed to write test to dataset!");
     
     let graph = load_graph(file_path).expect("Failed to load graph!");
-    asserteq!(graph.node_count(), 3, "Expected 3 nodes in the graph");
-    asserteq!(graph.edge_count(), 3, "Expected 3 edges in the graph");
+    assert_eq!(graph.node_count(), 3, "Expected 3 nodes in the graph");
+    assert_eq!(graph.edge_count(), 3, "Expected 3 edges in the graph");
 
     std::fs::remove_file(file_path).expect("Failed to clean up test dataset");
 }
@@ -78,6 +78,6 @@ fn test_degree_analysis_small_graph() {
         out_degrees.push(graph.neighbors_directed(node, petgraph::Direction::Outgoing).count());
     }
     
-    asserteq!(in_degrees, vec![1, 1, 1], "Each node should have in-degree 1");
+    assert_eq!(in_degrees, vec![1, 1, 1], "Each node should have in-degree 1");
     assert_eq!(out_degrees, vec![1, 1, 1], "Each node should have out-degree 1");
 }
