@@ -92,6 +92,6 @@ pub fn clustering_coefficient(graph: &DiGraph<u32, ()>, node: u32) -> f64 {
         }
     }
 
-    let total_possible_connections = neighbors_count * (neighbor_count - 1) / 2;
-    connected as f64 / total_possible_connections as f64
+    let total_possible_connections = neighbor_count * (neighbor_count - 1) / 2;
+    connected_neighbors as f64 / total_possible_connections as f64
 }
